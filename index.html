@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <title>Send Email</title>
+</head>
+<body>
+    <form id="emailForm">
+        <label for="to">To:</label>
+        <input type="email" id="to" name="to" required><br><br>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+        <button type="button" id="btn">Send Email</button>
+    </form>
+
+    <script>
+        document.getElementById('btn').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            let to = document.getElementById('to').value;
+            let subject = document.getElementById('subject').value;
+            let body = document.getElementById('message').value;
+
+            Email.send({
+                SecureToken : "b4be456d-d8a4-4f49-8b8f-286eea26e50e",
+                To : to,
+                From : "mrunknownlvf8@gmail.com",
+                Subject : subject,
+                Body : body
+            }).then(
+                message => {
+                    if (message === "OK") {
+                        alert("Email sent successfully!");
+                    } else {
+                        alert("Failed to send email: " + message);
+                    }
+                }
+            ).catch(
+                error => {
+                    console.error('Error:', error);
+                    alert("An error occurred: " + error);
+                }
+            );
+        });
+    </script>
+</body>
+</html>
